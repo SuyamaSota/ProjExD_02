@@ -82,9 +82,9 @@ def main():
             print("Game Over")
             return
            
-        key_lst =pg.key.get_pressed()
-        if key_lst[pg.K_UP]:
-            kk_img = kk_imgs[(0,-5)]
+        key_lst =pg.key.get_pressed() #ps.key.get_pressed()で取得したkey_lstを使用しての動作のプログラム
+        if key_lst[pg.K_UP]: #Key_lst内のK_UPが押されたとき
+            kk_img = kk_imgs[(0,-5)] #kk_imgをkk_imgs[(0,5)]に変更する
         if key_lst[pg.K_DOWN]:
             kk_img = kk_imgs[(0,+5)]
         if key_lst[pg.K_LEFT]:
@@ -131,4 +131,3 @@ if __name__ == "__main__":
     main()
     pg.quit()
     sys.exit()
-
