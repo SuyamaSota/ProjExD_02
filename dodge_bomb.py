@@ -11,6 +11,14 @@ delta = {
         pg.K_RIGHT: (+5,0)
         }
 
+def check_bound(obj_rct: pg.Rect):
+    yoko,tate = True,True
+    if obj_rct.left < 0 or WIDTH < obj_rct.right:
+        yoko = False
+    if obj_rct.top < 0 or HEIGHT < obj_rct.bottom:
+        tate = False
+    return yoko,tate
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -21,7 +29,7 @@ def main():
     kk_rct.center = 900,400
 
     bb_img = pg.Surface((20,20))
-    pg.draw.circle(bb_img,(255,0,0),(10,10),10) #赤い半径10の円を描画
+    pg.draw.circle(bb_img,(255,0,0),(10,10),10) 
     bb_img.set_colorkey((0,0,0))
     bb_rct = bb_img.get_rect()
     bb_rct.centerx = random.randint(0,WIDTH)
@@ -48,9 +56,16 @@ def main():
 
         screen.blit(bg_img, [0, 0])
         kk_rct.move_ip(sum_mv[0],sum_mv[1])
+        if check_bound(kk_rct) != (True, True):
+            kk_rct.move_ip(-sum_mv[0], -sum_mv[1]) 
         screen.blit(kk_img, kk_rct)
         screen.blit(bb_img,bb_rct)
         bb_rct.move_ip(vx, vy)
+        yoko,tate = check_bound(bb_rct)
+        if not yoko:
+            vx *= -1
+        if not tate:
+            vy *= -1
         pg.display.update()
         tmr += 1
         clock.tick(50)
