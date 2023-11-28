@@ -5,10 +5,10 @@ import random
 
 WIDTH, HEIGHT = 1600, 900
 delta = { 
-        pg.K_UP: (0,-5),
-        pg.K_DOWN: (0,+5),
-        pg.K_LEFT: (-5,0),
-        pg.K_RIGHT: (+5,0)
+        pg.K_UP: (0,-50),
+        pg.K_DOWN: (0,+50),
+        pg.K_LEFT: (-100,0),
+        pg.K_RIGHT: (+100,0)
         }
 
 def check_bound(obj_rct: pg.Rect):
@@ -34,7 +34,7 @@ def main():
     bb_rct = bb_img.get_rect()
     bb_rct.centerx = random.randint(0,WIDTH)
     bb_rct.centery = random.randint(0,HEIGHT)
-    vx, vy = +5, +5
+    vx, vy = +50, +50
 
 
 
@@ -46,6 +46,10 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
+        
+        if kk_rct.colliderect(bb_rct):
+            print("Game Over")
+            return
             
         key_lst =pg.key.get_pressed()
         sum_mv=[0,0]
